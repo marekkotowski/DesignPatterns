@@ -3,25 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FabrykaWytworcza;
+using FactoryMethod;
+using Singelton;
+using Builder; 
 
-namespace WzorceProjektowe_1
+
+namespace DesignPatterns
 {
     class Program
     {
         static void Main(string[] args)
         {
-            FactoryMethod(); 
-      
+            FactoryMethodTest();
+            SingeltonTest();
+            BuilderTest(); 
 
+            Console.WriteLine("End Program");
             Console.ReadLine(); 
         }
 
 
-        static void FactoryMethod()
+        static void FactoryMethodTest()
         {
+            Console.WriteLine("Factory Test:");
             ICollection<IBase> Bazy = new List<IBase>();
-
 
             BaseCreator mssqlkreator = new BaseMSSQLCreator();
             IBase SoruceBaza = mssqlkreator.CreateBase();
@@ -41,6 +46,64 @@ namespace WzorceProjektowe_1
                 baza.SQLInsert(); 
             }
 
+        }
+
+
+        static void SingeltonTest()
+        {
+            Console.WriteLine("Singleton Test:");
+            SingeltonModel sInstance1 = SingeltonModel.GetInstance("Instance 1");
+            SingeltonModel sInstance2 = SingeltonModel.GetInstance("Instance 2");
+            SingeltonModel sInstance3 = SingeltonModel.GetInstance("Instance 3");
+
+            Console.WriteLine(SingeltonModel.SomeFunctionWrite());
+
+            Console.WriteLine(nameof(sInstance3));
+        }
+
+        static void BuilderTest()
+        {
+            Console.WriteLine("Builder Test:");
+            //without Director
+            var houseBuilder = new HouseBulder();
+            houseBuilder.BuildFloor("wood");
+            houseBuilder.BuildWalls("stone");
+            houseBuilder.BuildDoors(4, "wood");
+            houseBuilder.BuildRoof("shingle");
+            houseBuilder.BuildWindows(8);
+
+            Console.WriteLine("Construction componets:");
+            foreach (object part in houseBuilder.GetHouse().ListParts())
+            {
+                Console.WriteLine($"\t-{part}");
+            }
+
+
+            //with Director 
+            var Director = new DirectorModel();
+            Director.SetBuilder = houseBuilder;
+            Director.BuildSmallWoodHouse();
+
+            Console.WriteLine("Small wood house construction componets:");
+            foreach (object part in houseBuilder.GetHouse().ListParts())
+            {
+                Console.WriteLine($"\t-{part}");
+            }
+
+
+            Director.BuildBigStoneHouse();
+            Console.WriteLine("Big stone house construction componets:");
+            foreach (object part in houseBuilder.GetHouse().ListParts())
+            {
+                Console.WriteLine($"\t-{part}");
+            }
+
+            Director.BuildSmallHouse("concrete");
+            Console.WriteLine("Small concrete house construction componets:");
+            foreach (object part in houseBuilder.GetHouse().ListParts())
+            {
+                Console.WriteLine($"\t-{part}");
+            }
         }
     }
 }

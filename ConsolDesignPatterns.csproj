@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignPatterns\Builder.cs" />
     <Compile Include="DesignPatterns\FactoryMethod.cs" />
     <Compile Include="DesignPatterns\ReadModel.cs" />
+    <Compile Include="DesignPatterns\Singelton.cs" />
     <Compile Include="ICollection\Kolekcje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

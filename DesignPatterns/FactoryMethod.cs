@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Common;
 using System.Data;
 
-namespace FabrykaWytworcza
+namespace FactoryMethod
 {
     abstract class BaseCreator
     {
@@ -40,8 +40,6 @@ namespace FabrykaWytworcza
         {
             return $"ODBC ConnectionSTring {_host} {_database}";
         }
-
-
     }
 
 
