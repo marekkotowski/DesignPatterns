@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DesignPatterns\Builder.cs" />
     <Compile Include="DesignPatterns\FactoryMethod.cs" />
+    <Compile Include="DesignPatterns\Prototype.cs" />
     <Compile Include="DesignPatterns\ReadModel.cs" />
     <Compile Include="DesignPatterns\Singelton.cs" />
     <Compile Include="ICollection\Kolekcje.cs" />

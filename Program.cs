@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using FactoryMethod;
 using Singelton;
-using Builder; 
+using Builder;
+using Prototype; 
 
 
 namespace DesignPatterns
@@ -14,9 +15,10 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            FactoryMethodTest();
-            SingeltonTest();
-            BuilderTest(); 
+            //FactoryMethodTest();
+            //SingeltonTest();
+            //BuilderTest();
+            PrototypeTest(); 
 
             Console.WriteLine("End Program");
             Console.ReadLine(); 
@@ -104,6 +106,30 @@ namespace DesignPatterns
             {
                 Console.WriteLine($"\t-{part}");
             }
+        }
+
+        static void PrototypeTest()
+        {
+            IList<IWarrriorPrototype> warriors = new List<IWarrriorPrototype>(); 
+
+            IWarrriorPrototype FranceWarrior = new WarriorModel() { Attack = 20, Defence = 20, Speed = 10, Country="France"};
+            warriors.Add(FranceWarrior);
+
+            IWarrriorPrototype BritshWarrior = FranceWarrior.CloneWarrior();
+            BritshWarrior.Country = "Britain";
+            BritshWarrior.Defence = 25;
+            warriors.Add(BritshWarrior);
+
+            IWarrriorPrototype GermanWarrior = FranceWarrior.CloneWarrior();
+            GermanWarrior.Country = "Germany";
+            GermanWarrior.Attack = 30;
+            warriors.Add(GermanWarrior);
+
+
+            foreach (IWarrriorPrototype _warrior in warriors)
+            {
+                Console.WriteLine($"Warrior: Country={_warrior.Country}, Attack={_warrior.Attack}, Defence={_warrior.Defence}, Speed={_warrior.Speed}");
+            }        
         }
     }
 }
