@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using FactoryMethod;
 using Singelton;
 using Builder;
-using Prototype; 
+using Prototype;
+using AbstractFactory;
+
 
 
 namespace DesignPatterns
@@ -18,7 +20,8 @@ namespace DesignPatterns
             //FactoryMethodTest();
             //SingeltonTest();
             //BuilderTest();
-            PrototypeTest(); 
+            //PrototypeTest(); 
+            AbstractFactoryTest(); 
 
             Console.WriteLine("End Program");
             Console.ReadLine(); 
@@ -130,6 +133,17 @@ namespace DesignPatterns
             {
                 Console.WriteLine($"Warrior: Country={_warrior.Country}, Attack={_warrior.Attack}, Defence={_warrior.Defence}, Speed={_warrior.Speed}");
             }        
+        }
+
+        static void AbstractFactoryTest()
+        {
+            Client WoodKnight = new Client();
+            WoodKnight.ClientOrder(new WoodArmorFactory());
+
+            Client IronKnight = new Client(); 
+            IronKnight.ClientOrder(new IronArmorFactory()); 
+
+
         }
     }
 }

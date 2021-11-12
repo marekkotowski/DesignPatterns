@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DesignPatterns\Abstract Factory.cs" />
     <Compile Include="DesignPatterns\Builder.cs" />
     <Compile Include="DesignPatterns\FactoryMethod.cs" />
     <Compile Include="DesignPatterns\Prototype.cs" />
