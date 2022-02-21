@@ -8,6 +8,7 @@ using Singelton;
 using Builder;
 using Prototype;
 using AbstractFactory;
+using ChainOfResponsibility;
 
 
 
@@ -21,7 +22,9 @@ namespace DesignPatterns
             //SingeltonTest();
             //BuilderTest();
             //PrototypeTest(); 
-            AbstractFactoryTest(); 
+            // AbstractFactoryTest(); 
+            ChainOfResponsibilityTest(); 
+
 
             Console.WriteLine("End Program");
             Console.ReadLine(); 
@@ -52,7 +55,6 @@ namespace DesignPatterns
             }
 
         }
-
 
         static void SingeltonTest()
         {
@@ -117,21 +119,24 @@ namespace DesignPatterns
 
             IWarrriorPrototype FranceWarrior = new WarriorModel() { Attack = 20, Defence = 20, Speed = 10, Country="France"};
             warriors.Add(FranceWarrior);
-
+            System.Threading.Thread.Sleep(200);
             IWarrriorPrototype BritshWarrior = FranceWarrior.CloneWarrior();
             BritshWarrior.Country = "Britain";
             BritshWarrior.Defence = 25;
             warriors.Add(BritshWarrior);
-
+            System.Threading.Thread.Sleep(200);
+            var WariorTest = BritshWarrior.ShallowCopy();
+            warriors.Add(WariorTest);
+            System.Threading.Thread.Sleep(200);
             IWarrriorPrototype GermanWarrior = FranceWarrior.CloneWarrior();
             GermanWarrior.Country = "Germany";
             GermanWarrior.Attack = 30;
             warriors.Add(GermanWarrior);
-
+            System.Threading.Thread.Sleep(200);
 
             foreach (IWarrriorPrototype _warrior in warriors)
             {
-                Console.WriteLine($"Warrior: Country={_warrior.Country}, Attack={_warrior.Attack}, Defence={_warrior.Defence}, Speed={_warrior.Speed}");
+                Console.WriteLine($"Warrior: Country={_warrior.Country}, Attack={_warrior.Attack}, Defence={_warrior.Defence}, Speed={_warrior.Speed}, Number = {_warrior.GetNumber()}");
             }        
         }
 
@@ -142,6 +147,23 @@ namespace DesignPatterns
 
             Client IronKnight = new Client(); 
             IronKnight.ClientOrder(new IronArmorFactory()); 
+
+
+        }
+
+        static void ChainOfResponsibilityTest()
+        {
+            var datacompletion = new DataCompletion();
+            var datachecking = new DataChecking(); 
+            var dataformatting = new DataFormatting();
+            var messageconfirmation = new MessageConfirmation();
+            var messagecreator = new MessageCreator();
+  
+            datacompletion.SetNext(datachecking).SetNext(dataformatting).SetNext(messageconfirmation);
+            MessageSender.SendMessage(datacompletion, messagecreator);
+            messagecreator = new MessageCreator();
+            MessageSender.SendMessage(dataformatting, messagecreator);
+            
 
 
         }
